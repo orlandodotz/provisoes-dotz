@@ -10,12 +10,9 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: #f0f0f0; color: #1a1a1a; font-family: 'Segoe UI', Calibri, system-ui, sans-serif; min-height: 100vh; }
 
-    /* ---- HEADER ---- */
     .header {
-      background: #fff;
-      border-bottom: 1px solid #d0d0d0;
-      padding: 12px 28px;
-      display: flex; align-items: center; justify-content: space-between;
+      background: #fff; border-bottom: 1px solid #d0d0d0;
+      padding: 12px 28px; display: flex; align-items: center; justify-content: space-between;
     }
     .header-title { font-size: 20px; font-weight: 700; color: #1a1a1a; }
     .nav-tabs { display: flex; gap: 0; border: 1px solid #aaa; border-radius: 4px; overflow: hidden; }
@@ -27,60 +24,48 @@
     .nav-tab.active { background: #1a1a1a; color: #fff; }
     .nav-tab:not(.active):hover { background: #f0f0f0; }
 
-    /* ---- VIEWS ---- */
     .view { display: none; padding: 18px 24px; }
     .view.active { display: block; }
 
-    /* ---- FILTRO + KPI ROW ---- */
-    .top-bar {
-      display: flex; align-items: flex-end; gap: 40px;
-      margin-bottom: 18px; flex-wrap: wrap;
-    }
+    .top-bar { display: flex; align-items: flex-end; gap: 40px; margin-bottom: 18px; flex-wrap: wrap; }
     .filter-group { display: flex; flex-direction: column; gap: 4px; }
     .filter-label { font-size: 11px; color: #888; font-weight: 500; }
     .filter-select {
       background: #fff; border: 1px solid #bbb; color: #1a1a1a;
-      padding: 5px 10px; border-radius: 3px; font-size: 13px; cursor: pointer; outline: none;
-      min-width: 130px;
+      padding: 5px 10px; border-radius: 3px; font-size: 13px; cursor: pointer; outline: none; min-width: 130px;
     }
     .filter-select:focus { border-color: #555; }
     .kpi-group { display: flex; flex-direction: column; gap: 2px; }
     .kpi-label { font-size: 11px; color: #888; font-weight: 500; }
     .kpi-total { font-size: 28px; font-weight: 700; color: #1a1a1a; line-height: 1; }
 
-    /* ---- CHART GRID ---- */
     .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     @media (max-width: 860px) { .chart-grid { grid-template-columns: 1fr; } }
     .chart-card {
-      background: #fff; border: 1px solid #d0d0d0;
-      border-radius: 3px; padding: 16px 18px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      background: #fff; border: 1px solid #d0d0d0; border-radius: 3px;
+      padding: 16px 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
     }
-    .chart-title {
-      font-size: 13px; font-weight: 700; color: #1a1a1a;
-      margin-bottom: 14px; letter-spacing: 0;
-    }
-    .chart-wrap { position: relative; height: 240px; }
-    .chart-wrap.tall { height: 310px; }
+    .chart-title { font-size: 13px; font-weight: 700; color: #1a1a1a; margin-bottom: 14px; }
+    /* altura generosa para os rótulos não serem cortados */
+    .chart-wrap { position: relative; height: 260px; overflow: visible; }
+    .chart-wrap.tall { height: 320px; }
 
-    /* ---- TOP 10 LIST ---- */
-    .top10-list { display: flex; flex-direction: column; gap: 0; height: 310px; overflow-y: auto; }
+    /* Top 10 lista */
+    .top10-list { height: 320px; overflow-y: auto; display: flex; flex-direction: column; }
     .top10-row {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 6px 2px; border-bottom: 1px solid #f0f0f0; gap: 12px;
+      padding: 7px 4px; border-bottom: 1px solid #f0f0f0; gap: 12px;
     }
     .top10-row:last-child { border-bottom: none; }
-    .top10-name { font-size: 12px; color: #4472C4; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .top10-name:nth-child(odd) { color: #ED7D31; }
-    .top10-val { font-size: 12px; font-weight: 600; color: #1a1a1a; white-space: nowrap; }
+    .top10-name { font-size: 12px; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .top10-val  { font-size: 12px; font-weight: 700; color: #1a1a1a; white-space: nowrap; }
 
-    /* ---- RELATORIO ---- */
+    /* Relatório */
     .rel-top-bar {
       display: flex; align-items: center; justify-content: space-between;
       margin-bottom: 14px; flex-wrap: wrap; gap: 10px;
     }
-    .rel-title-block { }
-    .rel-title { font-size: 16px; font-weight: 700; color: #1a1a1a; }
+    .rel-title   { font-size: 16px; font-weight: 700; color: #1a1a1a; }
     .rel-subtitle { font-size: 12px; color: #888; margin-top: 2px; }
     .rel-controls { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
     .search-box {
@@ -88,41 +73,33 @@
       padding: 5px 10px; border-radius: 3px; font-size: 13px; width: 220px; outline: none;
     }
     .search-box:focus { border-color: #555; }
-
     .table-wrap { overflow-x: auto; background: #fff; border: 1px solid #d0d0d0; border-radius: 3px; }
     table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
     thead tr { background: #F2F2F2; }
     th {
       padding: 10px 12px; text-align: left; font-weight: 700; color: #1a1a1a;
-      font-size: 12px; border-bottom: 2px solid #bbb; border-right: 1px solid #ddd;
-      white-space: nowrap;
+      font-size: 12px; border-bottom: 2px solid #bbb; border-right: 1px solid #ddd; white-space: nowrap;
     }
     th:last-child { border-right: none; }
     th.sortable { cursor: pointer; user-select: none; }
     th.sortable:hover { background: #e6e6e6; }
-    td {
-      padding: 8px 12px; border-bottom: 1px solid #e8e8e8;
-      border-right: 1px solid #ececec; color: #1a1a1a;
-    }
+    td { padding: 8px 12px; border-bottom: 1px solid #e8e8e8; border-right: 1px solid #ececec; color: #1a1a1a; }
     td:last-child { border-right: none; }
     tr:last-child td { border-bottom: none; }
     tr:nth-child(even) td { background: #FAFAFA; }
     tr:hover td { background: #EEF4FB; }
     td.valor-cell { font-weight: 600; text-align: right; white-space: nowrap; }
-    td.valor-neg { color: #C00000; }
-    td.valor-pos { color: #375623; }
-    .badge {
-      display: inline-block; padding: 2px 7px; border-radius: 2px;
-      font-size: 11px; font-weight: 700;
-    }
+    td.valor-neg  { color: #C00000; }
+    td.valor-pos  { color: #375623; }
+    .badge { display: inline-block; padding: 2px 7px; border-radius: 2px; font-size: 11px; font-weight: 700; }
     .badge-cbsm    { background: #DEEAF1; color: #2E75B6; }
     .badge-dotz    { background: #E2EFDA; color: #375623; }
     .badge-noverde { background: #E2EFDA; color: #375623; }
     .badge-pay     { background: #FFF2CC; color: #7F6000; }
-    .no-data { text-align: center; padding: 40px; color: #888; }
+    .no-data    { text-align: center; padding: 40px; color: #888; }
     .count-info { font-size: 11px; color: #888; margin-top: 10px; }
     .concat-main { font-weight: 500; color: #1a1a1a; }
-    .concat-sub { font-size: 11px; color: #595959; margin-top: 1px; }
+    .concat-sub  { font-size: 11px; color: #595959; margin-top: 1px; }
   </style>
 </head>
 <body>
@@ -135,9 +112,8 @@
   </nav>
 </header>
 
-<!-- =================== DASHBOARD =================== -->
+<!-- DASHBOARD -->
 <div id="view-dashboard" class="view active">
-
   <div class="top-bar">
     <div class="filter-group">
       <span class="filter-label">Filtro Empresa</span>
@@ -162,34 +138,29 @@
   </div>
 
   <div class="chart-grid">
-    <!-- Empresa -->
     <div class="chart-card">
       <div class="chart-title">Provisão por Empresa</div>
       <div class="chart-wrap"><canvas id="chart-empresa"></canvas></div>
     </div>
-    <!-- Pacote Contábil -->
     <div class="chart-card">
       <div class="chart-title">Provisão por Pacote Contábil</div>
       <div class="chart-wrap"><canvas id="chart-subgrupo"></canvas></div>
     </div>
-    <!-- Mês/Ano -->
     <div class="chart-card">
       <div class="chart-title">Saldo de Provisão por Mês/Ano</div>
       <div class="chart-wrap"><canvas id="chart-mes"></canvas></div>
     </div>
-    <!-- Top 10 -->
     <div class="chart-card">
       <div class="chart-title">Provisões Top 10 Fornecedores</div>
       <div class="top10-list" id="top10-list"></div>
     </div>
   </div>
-
 </div>
 
-<!-- =================== RELATORIO =================== -->
+<!-- RELATÓRIO -->
 <div id="view-relatorio" class="view">
   <div class="rel-top-bar">
-    <div class="rel-title-block">
+    <div>
       <div class="rel-title">Relatório de Fornecedores</div>
       <div class="rel-subtitle" id="rel-subtitle">Empresa: Todos</div>
     </div>
@@ -208,10 +179,10 @@
     <table>
       <thead>
         <tr>
-          <th class="sortable" onclick="sortTable('fornecedor')">Ref.3 / Fornecedor ↕</th>
+          <th class="sortable" onclick="sortTable('fornecedor')">Fornecedor ↕</th>
           <th class="sortable" onclick="sortTable('empresa')">Empresa ↕</th>
           <th class="sortable" onclick="sortTable('mes')">Mês/Ano ↕</th>
-          <th>Conta Contábil / Descrição</th>
+          <th>Conta Contábil</th>
           <th class="sortable" onclick="sortTable('ntrans')">Nº Transação ↕</th>
           <th class="sortable" onclick="sortTable('valor')" style="text-align:right">Valor ↕</th>
         </tr>
@@ -225,8 +196,7 @@
 <script>
 Chart.register(ChartDataLabels);
 
-const GREEN     = '#70AD47';
-const GREEN_D   = '#548235';
+const GREEN = '#70AD47';
 Chart.defaults.color       = '#595959';
 Chart.defaults.borderColor = '#e0e0e0';
 Chart.defaults.font.family = "'Segoe UI', Calibri, system-ui, sans-serif";
@@ -235,36 +205,53 @@ let ALL_DATA  = [];
 let sortState = { key: null, asc: true };
 let charts    = {};
 
-/* ---------- formatadores ---------- */
+/* ---- helpers de data ---- */
+const MES_ORDER = {
+  'nov/25':0,'dez/25':1,'jan/26':2,'fev/26':3,
+  'mar/26':4,'abr/26':5,'mai/26':6,'jun/26':7,'jul/26':8
+};
+function normMes(m) {
+  /* "mai-26"  →  "mai/26" (minúsculo, barra) */
+  return (m || '').toLowerCase().replace('-', '/');
+}
+function capMes(m) {
+  /* "mai/26"  →  "Mai/26" */
+  const n = normMes(m);
+  return n.charAt(0).toUpperCase() + n.slice(1);
+}
+function monthOrder(m) { return MES_ORDER[normMes(m)] ?? 99; }
+
+/* ---- helpers gerais ---- */
 function fmtBRL(v) {
   const a = Math.abs(v);
   if (a >= 1e6) return 'R$ ' + (a / 1e6).toFixed(1).replace('.', ',') + ' mi';
-  if (a >= 1e3) return 'R$ ' + Math.round(a).toLocaleString('pt-BR');
-  return 'R$ ' + a.toFixed(2).replace('.', ',');
+  return 'R$ ' + Math.round(a).toLocaleString('pt-BR');
 }
 function fmtBRLFull(v) {
   const a = Math.abs(v);
   const s = a.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   return (v < 0 ? '(' : '') + 'R$ ' + s + (v < 0 ? ')' : '');
 }
-function normMes(m) {
-  /* normaliza "mai-26" → "mai/26" */
-  return (m || '').replace('-', '/').toLowerCase();
-}
-function monthOrder(m) {
-  const map = { 'nov/25':0,'dez/25':1,'jan/26':2,'fev/26':3,'mar/26':4,'abr/26':5,'mai/26':6,'jun/26':7,'jul/26':8 };
-  return map[normMes(m)] ?? 99;
-}
 function groupBy(arr, key) {
   return arr.reduce((acc, r) => { acc[r[key]] = (acc[r[key]] || 0) + r.valor; return acc; }, {});
+}
+function toTitleCase(s) {
+  const minors = new Set(['de','da','do','das','dos','e','a','o','as','os','em','para','com']);
+  return String(s || '').toLowerCase()
+    .split(' ')
+    .map((w, i) => (!w ? '' : (i === 0 || !minors.has(w)) ? w.charAt(0).toUpperCase() + w.slice(1) : w))
+    .join(' ');
 }
 function empresaBadge(e) {
   const cl = { CBSM:'cbsm', Dotz:'dotz', Noverde:'noverde', PAY:'pay' };
   return `<span class="badge badge-${cl[e] || 'cbsm'}">${e}</span>`;
 }
+function escHtml(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
 function destroyChart(id) { if (charts[id]) { charts[id].destroy(); delete charts[id]; } }
 
-/* ---------- dados filtrados ---------- */
+/* ---- dados filtrados ---- */
 function filteredData() {
   const emp = document.getElementById('dash-filter-empresa').value;
   const mes = document.getElementById('dash-filter-mes').value;
@@ -274,15 +261,23 @@ function filteredData() {
   );
 }
 
-/* ---------- dashboard ---------- */
+/* ---- dashboard ---- */
 function updateDashboard() {
   const data  = filteredData();
   const total = data.reduce((s, r) => s + r.valor, 0);
   document.getElementById('kpi-total').textContent = fmtBRL(total);
 
-  /* -- Empresa (barras verticais) -- */
-  const empGroup  = groupBy(data, 'empresa');
-  const empOrder  = ['CBSM','Dotz','Noverde','PAY'].filter(e => empGroup[e] !== undefined);
+  /* opções comuns de datalabels para não cortar */
+  const labelOpts = (fontSize) => ({
+    anchor: 'end', align: 'end', clip: false,
+    color: '#1a1a1a',
+    font: { size: fontSize, weight: '600' },
+    padding: { top: 2, bottom: 2, left: 3, right: 3 },
+  });
+
+  /* ---- Empresa (barras verticais) ---- */
+  const empGroup = groupBy(data, 'empresa');
+  const empOrder = ['CBSM','Dotz','Noverde','PAY'].filter(e => empGroup[e] !== undefined);
   destroyChart('empresa');
   charts['empresa'] = new Chart(document.getElementById('chart-empresa'), {
     type: 'bar',
@@ -295,63 +290,61 @@ function updateDashboard() {
     },
     options: {
       responsive: true, maintainAspectRatio: false,
+      layout: { padding: { top: 28 } },
       plugins: {
         legend: { display: false },
         datalabels: {
-          anchor: 'end', align: 'top', color: '#1a1a1a',
-          font: { size: 10, weight: '600' },
+          ...labelOpts(9.5),
+          align: 'top', anchor: 'end',
           formatter: v => 'R$ ' + Math.round(v).toLocaleString('pt-BR'),
         }
       },
       scales: {
         x: { grid: { display: false }, ticks: { color: '#333', font: { size: 12 } } },
-        y: { display: false, grace: '18%' }
+        y: { display: false }
       }
     }
   });
 
-  /* -- Pacote Contábil (barras horizontais) -- */
-  const sgGroup  = groupBy(data, 'subLimpo');
+  /* ---- Pacote Contábil (barras horizontais) ---- */
+  const sgGroup   = groupBy(data, 'subLimpo');
   delete sgGroup[''];
   const sgEntries = Object.entries(sgGroup).sort((a, b) => a[1] - b[1]);
-  const sgLabels  = sgEntries.map(([k]) => k);
-  const sgVals    = sgEntries.map(([, v]) => Math.abs(v));
   destroyChart('subgrupo');
   charts['subgrupo'] = new Chart(document.getElementById('chart-subgrupo'), {
     type: 'bar',
     data: {
-      labels: sgLabels,
-      datasets: [{ data: sgVals, backgroundColor: GREEN, borderRadius: 2, borderSkipped: false }]
+      labels: sgEntries.map(([k]) => k),
+      datasets: [{ data: sgEntries.map(([, v]) => Math.abs(v)), backgroundColor: GREEN, borderRadius: 2, borderSkipped: false }]
     },
     options: {
       indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      layout: { padding: { right: 90 } },
       plugins: {
         legend: { display: false },
         datalabels: {
-          anchor: 'end', align: 'end', color: '#1a1a1a',
-          font: { size: 10, weight: '600' },
+          ...labelOpts(9),
+          align: 'end', anchor: 'end', clip: false,
           formatter: v => 'R$ ' + Math.round(v).toLocaleString('pt-BR'),
         }
       },
       scales: {
-        x: { display: false, grace: '30%' },
+        x: { display: false },
         y: { grid: { display: false }, ticks: { color: '#333', font: { size: 10.5 } } }
       }
     }
   });
 
-  /* -- Mês/Ano (barras verticais) -- */
-  const mesGroup  = {};
-  data.forEach(r => {
-    const k = normMes(r.mes);
-    mesGroup[k] = (mesGroup[k] || 0) + r.valor;
-  });
+  /* ---- Mês/Ano (barras verticais, ordem cronológica) ---- */
+  const mesGroup = {};
+  data.forEach(r => { const k = normMes(r.mes); mesGroup[k] = (mesGroup[k] || 0) + r.valor; });
+  /* ordena do mais antigo (esq) ao mais recente (dir) */
   const mesLabels = Object.keys(mesGroup).sort((a, b) => monthOrder(a) - monthOrder(b));
   destroyChart('mes');
   charts['mes'] = new Chart(document.getElementById('chart-mes'), {
     type: 'bar',
     data: {
-      labels: mesLabels,
+      labels: mesLabels.map(capMes),          /* exibe "Mai/26" */
       datasets: [{
         data: mesLabels.map(m => Math.abs(mesGroup[m])),
         backgroundColor: GREEN, borderRadius: 2, borderSkipped: false,
@@ -359,35 +352,36 @@ function updateDashboard() {
     },
     options: {
       responsive: true, maintainAspectRatio: false,
+      layout: { padding: { top: 28 } },
       plugins: {
         legend: { display: false },
         datalabels: {
-          anchor: 'end', align: 'top', color: '#1a1a1a',
-          font: { size: 9.5, weight: '600' },
+          ...labelOpts(8.5),
+          align: 'top', anchor: 'end',
           formatter: v => 'R$ ' + Math.round(v).toLocaleString('pt-BR'),
         }
       },
       scales: {
-        x: { grid: { display: false }, ticks: { color: '#333', font: { size: 11 } } },
-        y: { display: false, grace: '18%' }
+        x: { grid: { display: false }, ticks: { color: '#333', font: { size: 10.5 } } },
+        y: { display: false }
       }
     }
   });
 
-  /* -- Top 10 Fornecedores (lista) -- */
-  const fornGroup   = groupBy(data, 'fornecedor');
-  const top10       = Object.entries(fornGroup).sort((a, b) => a[1] - b[1]).slice(0, 10);
-  const listEl      = document.getElementById('top10-list');
-  const fmtTop = v => 'R$ ' + Math.round(Math.abs(v)).toLocaleString('pt-BR');
-  listEl.innerHTML  = top10.map(([name, val], i) =>
+  /* ---- Top 10 Fornecedores (lista) ---- */
+  const fornGroup = groupBy(data, 'fornecedor');
+  const top10     = Object.entries(fornGroup).sort((a, b) => a[1] - b[1]).slice(0, 10);
+  /* cores do Excel original: azul e laranja alternados */
+  const COR = ['#4472C4', '#ED7D31'];
+  document.getElementById('top10-list').innerHTML = top10.map(([name, val], i) =>
     `<div class="top10-row">
-      <span class="top10-name" style="color:${i % 2 === 0 ? '#4472C4' : '#ED7D31'}" title="${name}">${name}</span>
-      <span class="top10-val">${fmtTop(val)}</span>
-    </div>`
+       <span class="top10-name" style="color:${COR[i % 2]}">${toTitleCase(name)}</span>
+       <span class="top10-val">R$ ${Math.round(Math.abs(val)).toLocaleString('pt-BR')}</span>
+     </div>`
   ).join('');
 }
 
-/* ---------- relatório ---------- */
+/* ---- relatório ---- */
 function updateRelatorio() {
   const emp    = document.getElementById('rel-filter-empresa').value;
   const search = document.getElementById('rel-search').value.toLowerCase();
@@ -402,7 +396,8 @@ function updateRelatorio() {
 
   if (sortState.key) {
     rows = [...rows].sort((a, b) => {
-      let av = a[sortState.key], bv = b[sortState.key];
+      let av = sortState.key === 'mes' ? monthOrder(a.mes) : a[sortState.key];
+      let bv = sortState.key === 'mes' ? monthOrder(b.mes) : b[sortState.key];
       if (typeof av === 'string') { av = av.toLowerCase(); bv = bv.toLowerCase(); }
       return sortState.asc ? (av > bv ? 1 : -1) : (av < bv ? 1 : -1);
     });
@@ -412,29 +407,25 @@ function updateRelatorio() {
   if (!rows.length) {
     tbody.innerHTML = '<tr><td colspan="6" class="no-data">Nenhum registro encontrado.</td></tr>';
   } else {
-    tbody.innerHTML = rows.map(r => {
-      const mesFmt = normMes(r.mes); /* mai/26 */
-      return `<tr>
+    tbody.innerHTML = rows.map(r => `
+      <tr>
         <td>
-          <div class="concat-main">${escHtml(r.ref3)} &nbsp;—&nbsp; ${escHtml(r.fornecedor)}</div>
+          <div class="concat-main">${escHtml(toTitleCase(r.fornecedor))}</div>
+          <div class="concat-sub">${escHtml(r.ref3)}</div>
         </td>
         <td>${empresaBadge(r.empresa)}</td>
-        <td>${mesFmt}</td>
+        <td>${capMes(r.mes)}</td>
         <td>
           <div class="concat-main">${escHtml(r.conta)}</div>
           <div class="concat-sub">${escHtml(r.descricaoConta)}</div>
         </td>
         <td>${escHtml(r.ntrans)}</td>
         <td class="valor-cell ${r.valor < 0 ? 'valor-neg' : 'valor-pos'}">${fmtBRLFull(r.valor)}</td>
-      </tr>`;
-    }).join('');
+      </tr>`).join('');
   }
   document.getElementById('rel-count').textContent = `${rows.length} de ${ALL_DATA.length} registros`;
 }
 
-function escHtml(s) {
-  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
 function sortTable(key) {
   sortState = sortState.key === key ? { key, asc: !sortState.asc } : { key, asc: true };
   updateRelatorio();
@@ -445,24 +436,22 @@ function switchTab(tab) {
   document.getElementById('view-' + tab).classList.add('active');
   document.querySelectorAll('.nav-tab').forEach(t => {
     if ((tab === 'dashboard' && t.textContent.startsWith('Dashboard')) ||
-        (tab === 'relatorio'  && t.textContent.startsWith('Relatório'))) {
-      t.classList.add('active');
-    }
+        (tab === 'relatorio'  && t.textContent.startsWith('Relatório'))) t.classList.add('active');
   });
 }
 
-/* ---------- inicialização ---------- */
 async function init() {
-  const res  = await fetch('data.json');
-  ALL_DATA   = await res.json();
+  const res = await fetch('data.json');
+  ALL_DATA  = await res.json();
   if (!Array.isArray(ALL_DATA)) ALL_DATA = [ALL_DATA];
 
-  /* popula filtro de meses */
+  /* popula filtro de meses com "Mai/26" */
   const meses  = [...new Set(ALL_DATA.map(r => normMes(r.mes)))].sort((a, b) => monthOrder(a) - monthOrder(b));
   const selMes = document.getElementById('dash-filter-mes');
   meses.forEach(m => {
     const o = document.createElement('option');
-    o.value = m; o.textContent = m;
+    o.value = m;                 /* valor interno: "mai/26" */
+    o.textContent = capMes(m);   /* exibição:       "Mai/26" */
     selMes.appendChild(o);
   });
 
