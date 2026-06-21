@@ -344,7 +344,7 @@ function updateDashboard() {
   charts['mes'] = new Chart(document.getElementById('chart-mes'), {
     type: 'bar',
     data: {
-      labels: mesLabels.map(capMes),          /* exibe "Mai/26" */
+      labels: mesLabels,                        /* exibe "mai/26" igual ao Excel */
       datasets: [{
         data: mesLabels.map(m => Math.abs(mesGroup[m])),
         backgroundColor: GREEN, borderRadius: 2, borderSkipped: false,
