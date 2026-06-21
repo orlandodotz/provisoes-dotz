@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Provisões — Dotz Consolidado</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface2: #263348;
+      --border: #334155;
+      --accent: #3b82f6;
+      --accent2: #6366f1;
+      --green: #10b981;
+      --red: #ef4444;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --card-shadow: 0 4px 24px rgba(0,0,0,0.35);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
+
+    /* ---- HEADER ---- */
+    .header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 14px 28px; display: flex; align-items: center; justify-content: space-between; }
+    .header-title { font-size: 18px; font-weight: 700; letter-spacing: 0.02em; }
+    .header-title span { color: var(--accent); }
+    .nav-tabs { display: flex; gap: 4px; }
+    .nav-tab { padding: 8px 20px; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 500; border: none; background: transparent; color: var(--muted); transition: all .2s; }
+    .nav-tab:hover { background: var(--surface2); color: var(--text); }
+    .nav-tab.active { background: var(--accent); color: #fff; }
+
+    /* ---- VIEWS ---- */
+    .view { display: none; padding: 24px 28px; }
+    .view.active { display: block; }
+
+    /* ---- FILTERS BAR ---- */
+    .filters-bar { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+    .filter-label { font-size: 13px; color: var(--muted); }
+    .filter-select { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 8px 14px; border-radius: 8px; font-size: 14px; cursor: pointer; outline: none; }
+    .filter-select:focus { border-color: var(--accent); }
+
+    /* ---- KPI CARDS ---- */
+    .kpi-row { display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+    .kpi-card { flex: 1; min-width: 180px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; box-shadow: var(--card-shadow); }
+    .kpi-label { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 8px; }
+    .kpi-value { font-size: 32px; font-weight: 700; color: var(--text); }
+    .kpi-value.negative { color: #f87171; }
+    .kpi-sub { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+    /* ---- CHART GRID ---- */
+    .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 900px) { .chart-grid { grid-template-columns: 1fr; } }
+    .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; box-shadow: var(--card-shadow); }
+    .chart-title { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 16px; }
+    .chart-wrap { position: relative; height: 260px; }
+    .chart-wrap.tall { height: 340px; }
+
+    /* ---- TABLE ---- */
+    .table-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
+    .table-title { font-size: 18px; font-weight: 700; }
+    .table-subtitle { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .search-box { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 8px 14px; border-radius: 8px; font-size: 14px; width: 260px; outline: none; }
+    .search-box:focus { border-color: var(--accent); }
+    .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead { background: var(--surface2); }
+    th { padding: 12px 16px; text-align: left; font-weight: 600; color: var(--muted); text-transform: uppercase; font-size: 11px; letter-spacing: .07em; border-bottom: 1px solid var(--border); white-space: nowrap; }
+    th.sortable { cursor: pointer; user-select: none; }
+    th.sortable:hover { color: var(--text); }
+    td { padding: 11px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); white-space: nowrap; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.03); }
+    td.valor-cell { font-weight: 600; text-align: right; }
+    td.valor-neg { color: #f87171; }
+    td.valor-pos { color: var(--green); }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+    .badge-cbsm    { background: rgba(59,130,246,0.2); color: #93c5fd; }
+    .badge-dotz    { background: rgba(99,102,241,0.2); color: #a5b4fc; }
+    .badge-noverde { background: rgba(16,185,129,0.2); color: #6ee7b7; }
+    .badge-pay     { background: rgba(245,158,11,0.2); color: #fcd34d; }
+    .no-data { text-align: center; padding: 40px; color: var(--muted); }
+    .count-info { font-size: 12px; color: var(--muted); margin-top: 12px; }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-title">Visão Geral — Provisões <span>(Consolidado)</span></div>
+  <nav class="nav-tabs">
+    <button class="nav-tab active" onclick="switchTab('dashboard')">Dashboard</button>
+    <button class="nav-tab" onclick="switchTab('relatorio')">Relatório</button>
+  </nav>
+</header>
+
+<!-- =================== DASHBOARD =================== -->
+<div id="view-dashboard" class="view active">
+  <div class="filters-bar">
+    <span class="filter-label">Filtro Empresa</span>
+    <select class="filter-select" id="dash-filter-empresa" onchange="updateDashboard()">
+      <option value="">Todos</option>
+      <option value="CBSM">CBSM</option>
+      <option value="Dotz">Dotz</option>
+      <option value="Noverde">Noverde</option>
+      <option value="PAY">PAY</option>
+    </select>
+    <select class="filter-select" id="dash-filter-mes" onchange="updateDashboard()">
+      <option value="">Todos os meses</option>
+    </select>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-label">Total Provisionado</div>
+      <div class="kpi-value negative" id="kpi-total">—</div>
+      <div class="kpi-sub" id="kpi-registros">— registros</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Maior Fornecedor</div>
+      <div class="kpi-value" id="kpi-top-forn" style="font-size:16px;line-height:1.3">—</div>
+      <div class="kpi-sub" id="kpi-top-forn-val">—</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Fornecedores Únicos</div>
+      <div class="kpi-value" id="kpi-forn-count">—</div>
+      <div class="kpi-sub">no período selecionado</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Meses com Provisão</div>
+      <div class="kpi-value" id="kpi-meses-count">—</div>
+      <div class="kpi-sub" id="kpi-periodo">—</div>
+    </div>
+  </div>
+
+  <div class="chart-grid">
+    <div class="chart-card">
+      <div class="chart-title">Provisão por Empresa</div>
+      <div class="chart-wrap"><canvas id="chart-empresa"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Provisão por Pacote Contábil</div>
+      <div class="chart-wrap"><canvas id="chart-subgrupo"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Saldo de Provisão por Mês/Ano</div>
+      <div class="chart-wrap"><canvas id="chart-mes"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Provisões — Top 10 Fornecedores</div>
+      <div class="chart-wrap tall"><canvas id="chart-top10"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- =================== RELATORIO =================== -->
+<div id="view-relatorio" class="view">
+  <div class="table-header">
+    <div>
+      <div class="table-title">Relatório de Fornecedores</div>
+      <div class="table-subtitle" id="rel-subtitle">Empresa: Todos</div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+      <select class="filter-select" id="rel-filter-empresa" onchange="updateRelatorio()">
+        <option value="">Todos</option>
+        <option value="CBSM">CBSM</option>
+        <option value="Dotz">Dotz</option>
+        <option value="Noverde">Noverde</option>
+        <option value="PAY">PAY</option>
+      </select>
+      <input class="search-box" id="rel-search" type="text" placeholder="Buscar fornecedor..." oninput="updateRelatorio()" />
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="sortable" onclick="sortTable('fornecedor')">Fornecedor ↕</th>
+          <th class="sortable" onclick="sortTable('empresa')">Empresa ↕</th>
+          <th class="sortable" onclick="sortTable('mes')">Mês/Ano ↕</th>
+          <th>Ref.3</th>
+          <th>Descrição Conta</th>
+          <th>Conta Contábil</th>
+          <th>Nº Transação</th>
+          <th class="sortable" onclick="sortTable('valor')" style="text-align:right">Valor ↕</th>
+        </tr>
+      </thead>
+      <tbody id="rel-tbody"></tbody>
+    </table>
+  </div>
+  <div class="count-info" id="rel-count"></div>
+</div>
+
+<script>
+Chart.register(ChartDataLabels);
+
+let ALL_DATA = [];
+let sortState = { key: null, asc: true };
+
+// ---- Paleta de cores ----
+const COLORS = {
+  empresa: { CBSM: '#3b82f6', Dotz: '#6366f1', Noverde: '#10b981', PAY: '#f59e0b' },
+  subgrupos: ['#3b82f6','#6366f1','#10b981','#f59e0b','#ef4444','#8b5cf6','#06b6d4','#f97316','#ec4899'],
+};
+const CHART_DEFAULTS = {
+  color: '#94a3b8',
+  borderColor: '#334155',
+};
+Chart.defaults.color = '#94a3b8';
+Chart.defaults.borderColor = '#334155';
+
+let charts = {};
+
+// ---- Utilitários ----
+function fmtBRL(v) {
+  const abs = Math.abs(v);
+  if (abs >= 1e6) return 'R$ ' + (abs/1e6).toFixed(1).replace('.',',') + ' mi';
+  if (abs >= 1e3) return 'R$ ' + (abs/1e3).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' k';
+  return 'R$ ' + abs.toFixed(2).replace('.', ',');
+}
+function fmtBRLFull(v) {
+  const abs = Math.abs(v);
+  return (v < 0 ? '(R$ ' : 'R$ ') + abs.toLocaleString('pt-BR', {minimumFractionDigits:2,maximumFractionDigits:2}) + (v < 0 ? ')' : '');
+}
+function groupBy(arr, key) {
+  return arr.reduce((acc, r) => { acc[r[key]] = (acc[r[key]] || 0) + r.valor; return acc; }, {});
+}
+function empresaBadge(e) {
+  const cl = { CBSM:'cbsm', Dotz:'dotz', Noverde:'noverde', PAY:'pay' };
+  return `<span class="badge badge-${cl[e]||'cbsm'}">${e}</span>`;
+}
+function monthOrder(mes) {
+  const map = { 'nov/25':0,'dez/25':1,'jan/26':2,'fev/26':3,'mar/26':4,'abr/26':5,'mai/26':6,'jun/26':7 };
+  return map[mes] ?? 99;
+}
+
+function filteredData() {
+  const emp = document.getElementById('dash-filter-empresa').value;
+  const mes = document.getElementById('dash-filter-mes').value;
+  return ALL_DATA.filter(r =>
+    (!emp || r.empresa === emp) &&
+    (!mes || r.mes === mes)
+  );
+}
+
+function destroyChart(id) { if (charts[id]) { charts[id].destroy(); delete charts[id]; } }
+
+function updateDashboard() {
+  const data = filteredData();
+  const total = data.reduce((s, r) => s + r.valor, 0);
+
+  // KPIs
+  document.getElementById('kpi-total').textContent = fmtBRL(total);
+  document.getElementById('kpi-registros').textContent = data.length + ' registros';
+
+  const fornGroup = groupBy(data, 'fornecedor');
+  const sorted = Object.entries(fornGroup).sort((a,b)=>a[1]-b[1]);
+  if (sorted.length) {
+    const top = sorted[0];
+    document.getElementById('kpi-top-forn').textContent = top[0];
+    document.getElementById('kpi-top-forn-val').textContent = fmtBRL(top[1]);
+  }
+  const uniqForn = new Set(data.map(r=>r.fornecedor)).size;
+  document.getElementById('kpi-forn-count').textContent = uniqForn;
+
+  const meses = [...new Set(data.map(r=>r.mes))].sort((a,b)=>monthOrder(a)-monthOrder(b));
+  document.getElementById('kpi-meses-count').textContent = meses.length;
+  document.getElementById('kpi-periodo').textContent = meses.length ? meses[0] + ' → ' + meses[meses.length-1] : '—';
+
+  // Chart: Empresa
+  const empGroup = groupBy(data, 'empresa');
+  const empLabels = Object.keys(empGroup).sort();
+  destroyChart('empresa');
+  charts['empresa'] = new Chart(document.getElementById('chart-empresa'), {
+    type: 'bar',
+    data: {
+      labels: empLabels,
+      datasets: [{
+        data: empLabels.map(e => Math.abs(empGroup[e])),
+        backgroundColor: empLabels.map(e => COLORS.empresa[e] || '#64748b'),
+        borderRadius: 6, borderSkipped: false,
+      }]
+    },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, datalabels: { color: '#f1f5f9', anchor: 'end', align: 'start', formatter: v => fmtBRL(-v), font: { size: 11, weight: '600' } } },
+      scales: { x: { display: false }, y: { grid: { display: false }, ticks: { font: { size: 12 } } } }
+    }
+  });
+
+  // Chart: SubGrupo
+  const sgGroup = groupBy(data, 'subLimpo');
+  delete sgGroup[''];
+  const sgLabels = Object.keys(sgGroup).sort((a,b)=>sgGroup[a]-sgGroup[b]);
+  destroyChart('subgrupo');
+  charts['subgrupo'] = new Chart(document.getElementById('chart-subgrupo'), {
+    type: 'doughnut',
+    data: {
+      labels: sgLabels,
+      datasets: [{ data: sgLabels.map(k=>Math.abs(sgGroup[k])), backgroundColor: COLORS.subgrupos, borderWidth: 2, borderColor: '#1e293b', hoverOffset: 8 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'right', labels: { boxWidth: 12, font: { size: 11 }, padding: 10 } },
+        datalabels: {
+          display: ctx => ctx.dataset.data[ctx.dataIndex] > 0,
+          formatter: v => fmtBRL(-v), color: '#fff', font: { size: 10, weight: '600' },
+        }
+      }
+    }
+  });
+
+  // Chart: Mês
+  const mesGroup = {};
+  data.forEach(r => { mesGroup[r.mes] = (mesGroup[r.mes]||0) + r.valor; });
+  const mesLabels = Object.keys(mesGroup).sort((a,b)=>monthOrder(a)-monthOrder(b));
+  destroyChart('mes');
+  charts['mes'] = new Chart(document.getElementById('chart-mes'), {
+    type: 'bar',
+    data: {
+      labels: mesLabels,
+      datasets: [{
+        label: 'Provisão',
+        data: mesLabels.map(m => Math.abs(mesGroup[m])),
+        backgroundColor: '#3b82f6', borderRadius: 6, borderSkipped: false,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        datalabels: { color: '#f1f5f9', anchor: 'end', align: 'top', formatter: v => fmtBRL(-v), font: { size: 10, weight: '600' } }
+      },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { size: 11 } } },
+        y: { display: false }
+      }
+    }
+  });
+
+  // Chart: Top 10 Fornecedores
+  const fornEntries = Object.entries(fornGroup).sort((a,b)=>a[1]-b[1]).slice(0,10);
+  destroyChart('top10');
+  charts['top10'] = new Chart(document.getElementById('chart-top10'), {
+    type: 'bar',
+    data: {
+      labels: fornEntries.map(([k]) => k.length > 38 ? k.slice(0,36)+'…' : k),
+      datasets: [{
+        data: fornEntries.map(([,v]) => Math.abs(v)),
+        backgroundColor: '#6366f1', borderRadius: 4, borderSkipped: false,
+      }]
+    },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        datalabels: { color: '#f1f5f9', anchor: 'end', align: 'start', formatter: v => fmtBRL(-v), font: { size: 10, weight: '600' } }
+      },
+      scales: {
+        x: { display: false },
+        y: { grid: { display: false }, ticks: { font: { size: 10 } } }
+      }
+    }
+  });
+}
+
+function updateRelatorio() {
+  const emp = document.getElementById('rel-filter-empresa').value;
+  const search = document.getElementById('rel-search').value.toLowerCase();
+  document.getElementById('rel-subtitle').textContent = 'Empresa: ' + (emp || 'Todos');
+
+  let rows = ALL_DATA.filter(r =>
+    (!emp || r.empresa === emp) &&
+    (!search || r.fornecedor.toLowerCase().includes(search) || r.descricaoConta.toLowerCase().includes(search))
+  );
+
+  if (sortState.key) {
+    rows = [...rows].sort((a, b) => {
+      let av = a[sortState.key], bv = b[sortState.key];
+      if (typeof av === 'string') av = av.toLowerCase();
+      if (typeof bv === 'string') bv = bv.toLowerCase();
+      return sortState.asc ? (av > bv ? 1 : -1) : (av < bv ? 1 : -1);
+    });
+  }
+
+  const tbody = document.getElementById('rel-tbody');
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="8" class="no-data">Nenhum registro encontrado.</td></tr>';
+  } else {
+    tbody.innerHTML = rows.map(r => `
+      <tr>
+        <td style="max-width:260px;overflow:hidden;text-overflow:ellipsis">${r.fornecedor}</td>
+        <td>${empresaBadge(r.empresa)}</td>
+        <td>${r.mes}</td>
+        <td>${r.ref3}</td>
+        <td>${r.descricaoConta}</td>
+        <td>${r.conta}</td>
+        <td>${r.ntrans}</td>
+        <td class="valor-cell ${r.valor < 0 ? 'valor-neg':'valor-pos'}">${fmtBRLFull(r.valor)}</td>
+      </tr>`).join('');
+  }
+  document.getElementById('rel-count').textContent = `${rows.length} de ${ALL_DATA.length} registros`;
+}
+
+function sortTable(key) {
+  if (sortState.key === key) { sortState.asc = !sortState.asc; }
+  else { sortState = { key, asc: true }; }
+  updateRelatorio();
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('view-' + tab).classList.add('active');
+  document.querySelectorAll('.nav-tab').forEach(t => { if (t.textContent.toLowerCase().startsWith(tab === 'dashboard' ? 'dash' : 'rel')) t.classList.add('active'); });
+}
+
+async function init() {
+  const res = await fetch('data.json');
+  ALL_DATA = await res.json();
+  if (!Array.isArray(ALL_DATA)) ALL_DATA = [ALL_DATA];
+
+  // popular filtro de meses
+  const meses = [...new Set(ALL_DATA.map(r=>r.mes))].sort((a,b)=>monthOrder(a)-monthOrder(b));
+  const selMes = document.getElementById('dash-filter-mes');
+  meses.forEach(m => { const o = document.createElement('option'); o.value = m; o.textContent = m; selMes.appendChild(o); });
+
+  updateDashboard();
+  updateRelatorio();
+}
+
+init();
+</script>
+</body>
+</html>
