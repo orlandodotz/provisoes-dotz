@@ -453,14 +453,29 @@ function updateRelatorio() {
 
   let html = '';
   groups.forEach(grp => {
-    grp.forEach(r => { html += buildRelRow(r); });
-
-    /* net só quando há positivo E negativo no mesmo grupo */
     const hasPos = grp.some(r => r.valor > 0);
     const hasNeg = grp.some(r => r.valor < 0);
+
     if (hasPos && hasNeg) {
+      /* colapsa em 1 linha com o saldo líquido */
+      const r   = grp[0];
       const net = grp.reduce((s, r) => s + r.valor, 0);
-      html += buildNetRow(grp[0].ref3, grp[0].conta, net);
+      html += `<tr class="net-row">
+        <td>
+          <div class="concat-main">${escHtml(toTitleCase(r.fornecedor))}</div>
+          <div class="concat-sub">${escHtml(r.ref3)} &nbsp;·&nbsp; <span class="net-label">Saldo Líquido</span></div>
+        </td>
+        <td>${empresaBadge(r.empresa)}</td>
+        <td>—</td>
+        <td>
+          <div class="concat-main">${escHtml(r.conta)}</div>
+          <div class="concat-sub">${escHtml(r.descricaoConta)}</div>
+        </td>
+        <td>—</td>
+        <td class="valor-cell ${net < 0 ? 'valor-neg' : 'valor-pos'}">${fmtBRLFull(net)}</td>
+      </tr>`;
+    } else {
+      grp.forEach(r => { html += buildRelRow(r); });
     }
   });
 
