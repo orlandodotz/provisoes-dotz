@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TechFin — Provisões</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #f0f0f0; color: #1a1a1a; font-family: 'Segoe UI', Calibri, system-ui, sans-serif; min-height: 100vh; }
+
+    .header {
+      background: #fff; border-bottom: 1px solid #d0d0d0;
+      padding: 12px 28px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .header-title { font-size: 20px; font-weight: 700; color: #1a1a1a; }
+    .nav-tabs { display: flex; gap: 0; border: 1px solid #aaa; border-radius: 4px; overflow: hidden; }
+    .nav-tab {
+      padding: 7px 22px; cursor: pointer; font-size: 13px; font-weight: 500;
+      border: none; background: #fff; color: #333; transition: background .15s;
+    }
+    .nav-tab:first-child { border-right: 1px solid #aaa; }
+    .nav-tab.active { background: #1a1a1a; color: #fff; }
+    .nav-tab:not(.active):hover { background: #f0f0f0; }
+
+    .view { display: none; padding: 18px 24px; }
+    .view.active { display: block; }
+
+    .top-bar { display: flex; align-items: flex-end; gap: 40px; margin-bottom: 18px; flex-wrap: wrap; }
+    .filter-group { display: flex; flex-direction: column; gap: 4px; }
+    .filter-label { font-size: 11px; color: #888; font-weight: 500; }
+    .filter-select {
+      background: #fff; border: 1px solid #bbb; color: #1a1a1a;
+      padding: 5px 10px; border-radius: 3px; font-size: 13px; cursor: pointer; outline: none; min-width: 130px;
+    }
+    .filter-select:focus { border-color: #555; }
+    .kpi-group { display: flex; flex-direction: column; gap: 2px; }
+    .kpi-label { font-size: 11px; color: #888; font-weight: 500; }
+    .kpi-total { font-size: 28px; font-weight: 700; color: #1a1a1a; line-height: 1; }
+
+    .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 860px) { .chart-grid { grid-template-columns: 1fr; } }
+    .chart-card {
+      background: #fff; border: 1px solid #d0d0d0; border-radius: 12px;
+      padding: 16px 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    .chart-title { font-size: 13px; font-weight: 700; color: #1a1a1a; margin-bottom: 14px; }
+    .chart-wrap { position: relative; height: 260px; overflow: visible; }
+    .chart-wrap.tall { height: 320px; }
+
+    .top10-list { height: 320px; overflow-y: auto; display: flex; flex-direction: column; }
+    .top10-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 7px 4px; border-bottom: 1px solid #f0f0f0; gap: 12px;
+    }
+    .top10-row:last-child { border-bottom: none; }
+    .top10-name { font-size: 12px; color: #1a1a1a; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .top10-val  { font-size: 12px; font-weight: 700; color: #1a1a1a; white-space: nowrap; }
+
+    .rel-top-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px; flex-wrap: wrap; gap: 10px;
+    }
+    .rel-title   { font-size: 16px; font-weight: 700; color: #1a1a1a; }
+    .rel-subtitle { font-size: 12px; color: #888; margin-top: 2px; }
+    .rel-controls { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .search-box {
+      background: #fff; border: 1px solid #bbb; color: #1a1a1a;
+      padding: 5px 10px; border-radius: 3px; font-size: 13px; width: 220px; outline: none;
+    }
+    .search-box:focus { border-color: #555; }
+    .table-wrap { overflow-x: auto; background: #fff; border: 1px solid #d0d0d0; border-radius: 3px; }
+    table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+    thead tr { background: #F2F2F2; }
+    th {
+      padding: 10px 12px; text-align: left; font-weight: 700; color: #1a1a1a;
+      font-size: 12px; border-bottom: 2px solid #bbb; border-right: 1px solid #ddd; white-space: nowrap;
+    }
+    th:last-child { border-right: none; }
+    th.sortable { cursor: pointer; user-select: none; }
+    th.sortable:hover { background: #e6e6e6; }
+    td { padding: 8px 12px; border-bottom: 1px solid #e8e8e8; border-right: 1px solid #ececec; color: #1a1a1a; }
+    td:last-child { border-right: none; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: #FAFAFA; }
+    tr:hover td { background: #EEF4FB; }
+    td.valor-cell { font-weight: 600; text-align: right; white-space: nowrap; }
+    td.valor-neg  { color: #C00000; }
+    td.valor-pos  { color: #375623; }
+    .badge { display: inline-block; padding: 2px 7px; border-radius: 2px; font-size: 11px; font-weight: 700; }
+    .badge-cbsm    { background: #DEEAF1; color: #2E75B6; }
+    .badge-dotz    { background: #E2EFDA; color: #375623; }
+    .badge-noverde { background: #E2EFDA; color: #375623; }
+    .badge-pay     { background: #FFF2CC; color: #7F6000; }
+    .no-data    { text-align: center; padding: 40px; color: #888; }
+    .count-info { font-size: 11px; color: #888; margin-top: 10px; }
+    .concat-main { font-weight: 500; color: #1a1a1a; }
+    .concat-sub  { font-size: 11px; color: #595959; margin-top: 1px; }
+    tr.net-row td { background: #EBF3E8 !important; border-top: 2px solid #70AD47; }
+    tr.net-row .net-label { font-size: 11px; font-style: italic; color: #375623; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-title">TechFin — Provisões</div>
+  <nav class="nav-tabs">
+    <button class="nav-tab active" onclick="switchTab('dashboard')">Dashboard</button>
+    <button class="nav-tab" onclick="switchTab('relatorio')">Relatório</button>
+  </nav>
+</header>
+
+<!-- DASHBOARD -->
+<div id="view-dashboard" class="view active">
+  <div class="top-bar">
+    <div class="filter-group">
+      <span class="filter-label">Filtro Empresa</span>
+      <select class="filter-select" id="dash-filter-empresa" onchange="updateDashboard()">
+        <option value="">Todos</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Mês/Ano</span>
+      <select class="filter-select" id="dash-filter-mes" onchange="updateDashboard()">
+        <option value="">Todos</option>
+      </select>
+    </div>
+    <div class="kpi-group">
+      <span class="kpi-label">Total Provisionado</span>
+      <span class="kpi-total" id="kpi-total">—</span>
+    </div>
+  </div>
+
+  <div class="chart-grid">
+    <div class="chart-card">
+      <div class="chart-title">Provisão por Empresa</div>
+      <div class="chart-wrap"><canvas id="chart-empresa"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Provisão por Pacote Contábil</div>
+      <div class="chart-wrap"><canvas id="chart-subgrupo"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Saldo de Provisão por Mês/Ano</div>
+      <div class="chart-wrap"><canvas id="chart-mes"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Provisões Top 10 Fornecedores</div>
+      <div class="top10-list" id="top10-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- RELATÓRIO -->
+<div id="view-relatorio" class="view">
+  <div class="rel-top-bar">
+    <div>
+      <div class="rel-title">Relatório de Fornecedores — TechFin</div>
+      <div class="rel-subtitle" id="rel-subtitle">Empresa: Todos</div>
+    </div>
+    <div class="rel-controls">
+      <select class="filter-select" id="rel-filter-empresa" onchange="updateRelatorio()">
+        <option value="">Todos</option>
+      </select>
+      <input class="search-box" id="rel-search" type="text" placeholder="Buscar fornecedor..." oninput="updateRelatorio()" />
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="sortable" onclick="sortTable('fornecedor')">Fornecedor ↕</th>
+          <th class="sortable" onclick="sortTable('empresa')">Empresa ↕</th>
+          <th class="sortable" onclick="sortTable('area')">Área ↕</th>
+          <th class="sortable" onclick="sortTable('mes')">Mês/Ano ↕</th>
+          <th>Conta Contábil</th>
+          <th class="sortable" onclick="sortTable('ntrans')">Nº Transação ↕</th>
+          <th class="sortable" onclick="sortTable('valor')" style="text-align:right">Valor ↕</th>
+        </tr>
+      </thead>
+      <tbody id="rel-tbody"></tbody>
+    </table>
+  </div>
+  <div class="count-info" id="rel-count"></div>
+</div>
+
+<script>
+Chart.register(ChartDataLabels);
+
+const GREEN = '#70AD47';
+Chart.defaults.color       = '#595959';
+Chart.defaults.borderColor = '#e0e0e0';
+Chart.defaults.font.family = "'Segoe UI', Calibri, system-ui, sans-serif";
+
+let ALL_DATA  = [];
+let sortState = { key: null, asc: true };
+let charts    = {};
+
+const MES_ORDER = {
+  'nov/25':0,'dez/25':1,'jan/26':2,'fev/26':3,
+  'mar/26':4,'abr/26':5,'mai/26':6,'jun/26':7,'jul/26':8
+};
+function normMes(m) { return (m || '').toLowerCase().replace('-', '/'); }
+function capMes(m)  { const n = normMes(m); return n.charAt(0).toUpperCase() + n.slice(1); }
+function monthOrder(m) { return MES_ORDER[normMes(m)] ?? 99; }
+
+function fmtBRL(v) {
+  const a = Math.abs(v);
+  if (a >= 1e6) return 'R$ ' + (a / 1e6).toFixed(1).replace('.', ',') + ' mi';
+  return 'R$ ' + Math.round(a).toLocaleString('pt-BR');
+}
+function fmtBRLFull(v) {
+  const a = Math.abs(v);
+  const s = a.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return (v < 0 ? '(' : '') + 'R$ ' + s + (v < 0 ? ')' : '');
+}
+function groupBy(arr, key) {
+  return arr.reduce((acc, r) => { acc[r[key]] = (acc[r[key]] || 0) + r.valor; return acc; }, {});
+}
+function toTitleCase(s) {
+  const minors = new Set(['de','da','do','das','dos','e','a','o','as','os','em','para','com']);
+  return String(s || '').toLowerCase()
+    .split(' ')
+    .map((w, i) => (!w ? '' : (i === 0 || !minors.has(w)) ? w.charAt(0).toUpperCase() + w.slice(1) : w))
+    .join(' ');
+}
+function empresaBadge(e) {
+  const cl = { CBSM:'cbsm', Dotz:'dotz', Noverde:'noverde', PAY:'pay' };
+  return `<span class="badge badge-${cl[e] || 'cbsm'}">${e}</span>`;
+}
+function escHtml(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function destroyChart(id) { if (charts[id]) { charts[id].destroy(); delete charts[id]; } }
+
+function filteredData() {
+  const emp = document.getElementById('dash-filter-empresa').value;
+  const mes = document.getElementById('dash-filter-mes').value;
+  return ALL_DATA.filter(r =>
+    (!emp || r.empresa === emp) &&
+    (!mes || normMes(r.mes) === mes)
+  );
+}
+
+function updateDashboard() {
+  const data  = filteredData();
+  const total = data.reduce((s, r) => s + r.valor, 0);
+  document.getElementById('kpi-total').textContent = fmtBRL(total);
+
+  const labelOpts = (fontSize) => ({
+    anchor: 'end', align: 'end', clip: false,
+    color: '#1a1a1a',
+    font: { size: fontSize, weight: '600' },
+    padding: { top: 2, bottom: 2, left: 3, right: 3 },
+  });
+
+  const empGroup = groupBy(data, 'empresa');
+  const empOrder = Object.keys(empGroup).sort();
+  destroyChart('empresa');
+  charts['empresa'] = new Chart(document.getElementById('chart-empresa'), {
+    type: 'bar',
+    data: {
+      labels: empOrder,
+      datasets: [{
+        data: empOrder.map(e => Math.abs(empGroup[e] || 0)),
+        backgroundColor: GREEN, borderRadius: 2, borderSkipped: false,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      layout: { padding: { top: 28 } },
+      plugins: {
+        legend: { display: false },
+        datalabels: {
+          ...labelOpts(9.5), align: 'top', anchor: 'end',
+          formatter: v => 'R$ ' + Math.round(v).toLocaleString('pt-BR'),
+        }
+      },
+      scales: {
+        x: { grid: { display: false }, ticks: { color: '#333', font: { size: 12 } } },
+        y: { display: false }
+      }
+    }
+  });
+
+  const sgGroup   = groupBy(data, 'subgrupo');
+  delete sgGroup[''];
+  const sgEntries = Object.entries(sgGroup).sort((a, b) => a[1] - b[1]);
+  destroyChart('subgrupo');
+  charts['subgrupo'] = new Chart(document.getElementById('chart-subgrupo'), {
+    type: 'bar',
+    data: {
+      labels: sgEntries.map(([k]) => k),
+      datasets: [{ data: sgEntries.map(([, v]) => Math.abs(v)), backgroundColor: GREEN, borderRadius: 2, borderSkipped: false }]
+    },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      layout: { padding: { right: 90 } },
+      plugins: {
+        legend: { display: false },
+        datalabels: {
+          ...labelOpts(9), align: 'end', anchor: 'end', clip: false,
+          formatter: v => 'R$ ' + Math.round(v).toLocaleString('pt-BR'),
+        }
+      },
+      scales: {
+        x: { display: false },
+        y: { grid: { display: false }, ticks: { color: '#333', font: { size: 10.5 } } }
+      }
+    }
+  });
+
+  const mesGroup = {};
+  data.forEach(r => { const k = normMes(r.mes); mesGroup[k] = (mesGroup[k] || 0) + r.valor; });
+  const mesLabels = Object.keys(mesGroup).sort((a, b) => monthOrder(a) - monthOrder(b));
+  destroyChart('mes');
+  charts['mes'] = new Chart(document.getElementById('chart-mes'), {
+    type: 'bar',
+    data: {
+      labels: mesLabels,
+      datasets: [{
+        data: mesLabels.map(m => Math.abs(mesGroup[m])),
+        backgroundColor: GREEN, borderRadius: 2, borderSkipped: false,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      layout: { padding: { top: 28 } },
+      plugins: {
+        legend: { display: false },
+        datalabels: {
+          ...labelOpts(8.5), align: 'top', anchor: 'end',
+          formatter: v => 'R$ ' + Math.round(v).toLocaleString('pt-BR'),
+        }
+      },
+      scales: {
+        x: { grid: { display: false }, ticks: { color: '#333', font: { size: 10.5 } } },
+        y: { display: false }
+      }
+    }
+  });
+
+  const fornGroup = groupBy(data, 'fornecedor');
+  const top10     = Object.entries(fornGroup).sort((a, b) => a[1] - b[1]).slice(0, 10);
+  document.getElementById('top10-list').innerHTML = top10.map(([name, val]) =>
+    `<div class="top10-row">
+       <span class="top10-name">${toTitleCase(name)}</span>
+       <span class="top10-val">R$ ${Math.round(Math.abs(val)).toLocaleString('pt-BR')}</span>
+     </div>`
+  ).join('');
+}
+
+function buildRelRow(r) {
+  return `<tr>
+    <td>
+      <div class="concat-main">${escHtml(toTitleCase(r.fornecedor))}</div>
+      <div class="concat-sub">${escHtml(r.ref3)}</div>
+    </td>
+    <td>${empresaBadge(r.empresa)}</td>
+    <td>${escHtml(r.area)}</td>
+    <td>${capMes(r.mes)}</td>
+    <td>
+      <div class="concat-main">${escHtml(r.conta)}</div>
+      <div class="concat-sub">${escHtml(r.descricaoConta)}</div>
+    </td>
+    <td>${escHtml(r.ntrans)}</td>
+    <td class="valor-cell ${r.valor < 0 ? 'valor-neg' : 'valor-pos'}">${fmtBRLFull(r.valor)}</td>
+  </tr>`;
+}
+
+function buildNetRow(ref, conta, net) {
+  return `<tr class="net-row">
+    <td colspan="5" style="text-align:right;padding-right:16px">
+      <span class="net-label">↳ Saldo Líquido — ${escHtml(ref)} / ${escHtml(conta)}</span>
+    </td>
+    <td></td>
+    <td class="valor-cell ${net < 0 ? 'valor-neg' : 'valor-pos'}">${fmtBRLFull(net)}</td>
+  </tr>`;
+}
+
+function updateRelatorio() {
+  const emp    = document.getElementById('rel-filter-empresa').value;
+  const search = document.getElementById('rel-search').value.toLowerCase();
+  document.getElementById('rel-subtitle').textContent = 'Empresa: ' + (emp || 'Todos');
+
+  let rows = ALL_DATA.filter(r =>
+    (!emp    || r.empresa === emp) &&
+    (!search || r.fornecedor.toLowerCase().includes(search)
+             || r.ref3.toLowerCase().includes(search)
+             || r.descricaoConta.toLowerCase().includes(search))
+  );
+
+  const groupKey  = r => `${r.fornecedor}||${r.ref3}||${r.conta}`;
+  const groupMap  = new Map();
+  rows.forEach(r => {
+    const k = groupKey(r);
+    if (!groupMap.has(k)) groupMap.set(k, []);
+    groupMap.get(k).push(r);
+  });
+
+  let groups = [...groupMap.values()];
+  if (sortState.key) {
+    groups.sort((ga, gb) => {
+      const a = ga[0], b = gb[0];
+      let av = sortState.key === 'mes' ? monthOrder(a.mes) : a[sortState.key];
+      let bv = sortState.key === 'mes' ? monthOrder(b.mes) : b[sortState.key];
+      if (typeof av === 'string') { av = av.toLowerCase(); bv = bv.toLowerCase(); }
+      return sortState.asc ? (av > bv ? 1 : -1) : (av < bv ? 1 : -1);
+    });
+    groups.forEach(g => g.sort((a, b) => monthOrder(a.mes) - monthOrder(b.mes)));
+  }
+
+  const tbody = document.getElementById('rel-tbody');
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="7" class="no-data">Nenhum registro encontrado.</td></tr>';
+    document.getElementById('rel-count').textContent = `0 de ${ALL_DATA.length} registros`;
+    return;
+  }
+
+  let html = '';
+  groups.forEach(grp => {
+    const hasPos = grp.some(r => r.valor > 0);
+    const hasNeg = grp.some(r => r.valor < 0);
+
+    if (hasPos && hasNeg) {
+      const orig = grp.find(r => r.valor < 0) || grp[0];
+      const net  = grp.reduce((s, r) => s + r.valor, 0);
+      html += `<tr>
+        <td>
+          <div class="concat-main">${escHtml(toTitleCase(orig.fornecedor))}</div>
+          <div class="concat-sub">${escHtml(orig.ref3)}</div>
+        </td>
+        <td>${empresaBadge(orig.empresa)}</td>
+        <td>${escHtml(orig.area)}</td>
+        <td>${capMes(orig.mes)}</td>
+        <td>
+          <div class="concat-main">${escHtml(orig.conta)}</div>
+          <div class="concat-sub">${escHtml(orig.descricaoConta)}</div>
+        </td>
+        <td>${escHtml(orig.ntrans)}</td>
+        <td class="valor-cell ${net < 0 ? 'valor-neg' : 'valor-pos'}">${fmtBRLFull(net)}</td>
+      </tr>`;
+    } else {
+      grp.forEach(r => { html += buildRelRow(r); });
+    }
+  });
+
+  tbody.innerHTML = html;
+  document.getElementById('rel-count').textContent = `${rows.length} de ${ALL_DATA.length} registros`;
+}
+
+function sortTable(key) {
+  sortState = sortState.key === key ? { key, asc: !sortState.asc } : { key, asc: true };
+  updateRelatorio();
+}
+function switchTab(tab) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('view-' + tab).classList.add('active');
+  document.querySelectorAll('.nav-tab').forEach(t => {
+    if ((tab === 'dashboard' && t.textContent.startsWith('Dashboard')) ||
+        (tab === 'relatorio'  && t.textContent.startsWith('Relatório'))) t.classList.add('active');
+  });
+}
+
+async function init() {
+  const res  = await fetch('data.json');
+  const raw  = await res.json();
+
+  /* filtra apenas registros da área TechFin */
+  ALL_DATA = (Array.isArray(raw) ? raw : [raw])
+    .filter(r => (r.area || '').toLowerCase().trim() === 'techfin');
+
+  /* popula empresa nos dois filtros dinamicamente */
+  const empresas = [...new Set(ALL_DATA.map(r => r.empresa).filter(Boolean))].sort();
+  ['dash-filter-empresa', 'rel-filter-empresa'].forEach(id => {
+    const sel = document.getElementById(id);
+    empresas.forEach(e => {
+      const o = document.createElement('option');
+      o.value = e; o.textContent = e;
+      sel.appendChild(o);
+    });
+  });
+
+  /* popula filtro de meses */
+  const meses  = [...new Set(ALL_DATA.map(r => normMes(r.mes)))].sort((a, b) => monthOrder(a) - monthOrder(b));
+  const selMes = document.getElementById('dash-filter-mes');
+  meses.forEach(m => {
+    const o = document.createElement('option');
+    o.value = m; o.textContent = capMes(m);
+    selMes.appendChild(o);
+  });
+
+  updateDashboard();
+  updateRelatorio();
+}
+
+init();
+</script>
+</body>
+</html>
