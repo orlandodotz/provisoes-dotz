@@ -100,6 +100,8 @@
     .count-info { font-size: 11px; color: #888; margin-top: 10px; }
     .concat-main { font-weight: 500; color: #1a1a1a; }
     .concat-sub  { font-size: 11px; color: #595959; margin-top: 1px; }
+    tr.net-row td { background: #EBF3E8 !important; border-top: 2px solid #70AD47; }
+    tr.net-row .net-label { font-size: 11px; font-style: italic; color: #375623; font-weight: 700; }
   </style>
 </head>
 <body>
@@ -380,6 +382,33 @@ function updateDashboard() {
 }
 
 /* ---- relatório ---- */
+function buildRelRow(r) {
+  return `<tr>
+    <td>
+      <div class="concat-main">${escHtml(toTitleCase(r.fornecedor))}</div>
+      <div class="concat-sub">${escHtml(r.ref3)}</div>
+    </td>
+    <td>${empresaBadge(r.empresa)}</td>
+    <td>${capMes(r.mes)}</td>
+    <td>
+      <div class="concat-main">${escHtml(r.conta)}</div>
+      <div class="concat-sub">${escHtml(r.descricaoConta)}</div>
+    </td>
+    <td>${escHtml(r.ntrans)}</td>
+    <td class="valor-cell ${r.valor < 0 ? 'valor-neg' : 'valor-pos'}">${fmtBRLFull(r.valor)}</td>
+  </tr>`;
+}
+
+function buildNetRow(ref, conta, net) {
+  return `<tr class="net-row">
+    <td colspan="4" style="text-align:right;padding-right:16px">
+      <span class="net-label">↳ Saldo Líquido — ${escHtml(ref)} / ${escHtml(conta)}</span>
+    </td>
+    <td></td>
+    <td class="valor-cell ${net < 0 ? 'valor-neg' : 'valor-pos'}">${fmtBRLFull(net)}</td>
+  </tr>`;
+}
+
 function updateRelatorio() {
   const emp    = document.getElementById('rel-filter-empresa').value;
   const search = document.getElementById('rel-search').value.toLowerCase();
@@ -392,35 +421,50 @@ function updateRelatorio() {
              || r.descricaoConta.toLowerCase().includes(search))
   );
 
+  /* ---- agrupar por (fornecedor + ref3 + conta) ---- */
+  const groupKey  = r => `${r.fornecedor}||${r.ref3}||${r.conta}`;
+  const groupMap  = new Map();
+  rows.forEach(r => {
+    const k = groupKey(r);
+    if (!groupMap.has(k)) groupMap.set(k, []);
+    groupMap.get(k).push(r);
+  });
+
+  /* ---- ordenar os grupos pelo critério do usuário ---- */
+  let groups = [...groupMap.values()];
   if (sortState.key) {
-    rows = [...rows].sort((a, b) => {
+    groups.sort((ga, gb) => {
+      const a = ga[0], b = gb[0];
       let av = sortState.key === 'mes' ? monthOrder(a.mes) : a[sortState.key];
       let bv = sortState.key === 'mes' ? monthOrder(b.mes) : b[sortState.key];
       if (typeof av === 'string') { av = av.toLowerCase(); bv = bv.toLowerCase(); }
       return sortState.asc ? (av > bv ? 1 : -1) : (av < bv ? 1 : -1);
     });
+    /* ordenar linhas dentro de cada grupo por mês */
+    groups.forEach(g => g.sort((a, b) => monthOrder(a.mes) - monthOrder(b.mes)));
   }
 
   const tbody = document.getElementById('rel-tbody');
   if (!rows.length) {
     tbody.innerHTML = '<tr><td colspan="6" class="no-data">Nenhum registro encontrado.</td></tr>';
-  } else {
-    tbody.innerHTML = rows.map(r => `
-      <tr>
-        <td>
-          <div class="concat-main">${escHtml(toTitleCase(r.fornecedor))}</div>
-          <div class="concat-sub">${escHtml(r.ref3)}</div>
-        </td>
-        <td>${empresaBadge(r.empresa)}</td>
-        <td>${capMes(r.mes)}</td>
-        <td>
-          <div class="concat-main">${escHtml(r.conta)}</div>
-          <div class="concat-sub">${escHtml(r.descricaoConta)}</div>
-        </td>
-        <td>${escHtml(r.ntrans)}</td>
-        <td class="valor-cell ${r.valor < 0 ? 'valor-neg' : 'valor-pos'}">${fmtBRLFull(r.valor)}</td>
-      </tr>`).join('');
+    document.getElementById('rel-count').textContent = `0 de ${ALL_DATA.length} registros`;
+    return;
   }
+
+  let html = '';
+  groups.forEach(grp => {
+    grp.forEach(r => { html += buildRelRow(r); });
+
+    /* net só quando há positivo E negativo no mesmo grupo */
+    const hasPos = grp.some(r => r.valor > 0);
+    const hasNeg = grp.some(r => r.valor < 0);
+    if (hasPos && hasNeg) {
+      const net = grp.reduce((s, r) => s + r.valor, 0);
+      html += buildNetRow(grp[0].ref3, grp[0].conta, net);
+    }
+  });
+
+  tbody.innerHTML = html;
   document.getElementById('rel-count').textContent = `${rows.length} de ${ALL_DATA.length} registros`;
 }
 
