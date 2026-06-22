@@ -298,7 +298,7 @@ function updateDashboard() {
         datalabels: {
           ...labelOpts(9.5),
           align: 'top', anchor: 'end',
-          formatter: v => fmtBRL(v),
+          formatter: v => 'R$ ' + Math.round(v).toLocaleString('pt-BR'),
         }
       },
       scales: {
@@ -327,7 +327,7 @@ function updateDashboard() {
         datalabels: {
           ...labelOpts(9),
           align: 'end', anchor: 'end', clip: false,
-          formatter: v => fmtBRL(v),
+          formatter: v => 'R$ ' + Math.round(v).toLocaleString('pt-BR'),
         }
       },
       scales: {
@@ -360,7 +360,7 @@ function updateDashboard() {
         datalabels: {
           ...labelOpts(8.5),
           align: 'top', anchor: 'end',
-          formatter: v => fmtBRL(v),
+          formatter: v => 'R$ ' + Math.round(v).toLocaleString('pt-BR'),
         }
       },
       scales: {
