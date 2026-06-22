@@ -310,7 +310,7 @@ function updateDashboard() {
   });
 
   /* ---- Pacote Contábil (barras horizontais) ---- */
-  const sgGroup   = groupBy(data, 'subLimpo');
+  const sgGroup   = groupBy(data, 'subgrupo');
   delete sgGroup[''];
   const sgEntries = Object.entries(sgGroup).sort((a, b) => a[1] - b[1]);
   destroyChart('subgrupo');
