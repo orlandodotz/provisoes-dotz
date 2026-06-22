@@ -460,10 +460,10 @@ function updateRelatorio() {
       /* colapsa em 1 linha com o saldo líquido */
       const r   = grp[0];
       const net = grp.reduce((s, r) => s + r.valor, 0);
-      html += `<tr class="net-row">
+      html += `<tr>
         <td>
           <div class="concat-main">${escHtml(toTitleCase(r.fornecedor))}</div>
-          <div class="concat-sub">${escHtml(r.ref3)} &nbsp;·&nbsp; <span class="net-label">Saldo Líquido</span></div>
+          <div class="concat-sub">${escHtml(r.ref3)}</div>
         </td>
         <td>${empresaBadge(r.empresa)}</td>
         <td>—</td>
