@@ -9,7 +9,8 @@
     "subgrupo": "Services",
     "valor": -318361.2,
     "descricaoConta": "Assessoria Jurídica",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Services"
   },
   {
     "empresa": "CBSM",
@@ -21,7 +22,8 @@
     "subgrupo": "IT & Telecom",
     "valor": -210979.0,
     "descricaoConta": "Locação de Equipamentos de Informática",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "IT & Telecom"
   },
   {
     "empresa": "CBSM",
@@ -33,7 +35,8 @@
     "subgrupo": "IT & Telecom",
     "valor": -99000.0,
     "descricaoConta": "Telefonia",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "IT & Telecom"
   },
   {
     "empresa": "CBSM",
@@ -45,7 +48,8 @@
     "subgrupo": "Services",
     "valor": 40000.0,
     "descricaoConta": "Assessoria Contábil e Auditoria",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Services"
   },
   {
     "empresa": "CBSM",
@@ -57,7 +61,8 @@
     "subgrupo": "IT & Telecom",
     "valor": 59638.53,
     "descricaoConta": "Locação de Equipamentos de Informática",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "IT & Telecom"
   },
   {
     "empresa": "CBSM",
@@ -69,7 +74,8 @@
     "subgrupo": "Services",
     "valor": -242060.0,
     "descricaoConta": "Assessoria Jurídica",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Services"
   },
   {
     "empresa": "CBSM",
@@ -81,7 +87,8 @@
     "subgrupo": "Services",
     "valor": -10000.0,
     "descricaoConta": "Serviços de Consultoria",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Services"
   },
   {
     "empresa": "CBSM",
@@ -93,7 +100,8 @@
     "subgrupo": "CRM & Call Center",
     "valor": -24000.0,
     "descricaoConta": "Despesas Call Center",
-    "subLimpo": "Atendimento"
+    "subLimpo": "Atendimento",
+    "area": "CRM & Call Center"
   },
   {
     "empresa": "CBSM",
@@ -105,7 +113,8 @@
     "subgrupo": "Services",
     "valor": 3551.56,
     "descricaoConta": "Serviços de Consultoria",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Services"
   },
   {
     "empresa": "CBSM",
@@ -117,7 +126,8 @@
     "subgrupo": "CRM & Call Center",
     "valor": -24000.0,
     "descricaoConta": "Despesas Call Center",
-    "subLimpo": "Atendimento"
+    "subLimpo": "Atendimento",
+    "area": "CRM & Call Center"
   },
   {
     "empresa": "CBSM",
@@ -129,7 +139,8 @@
     "subgrupo": "CRM & Call Center",
     "valor": -33100.0,
     "descricaoConta": "Despesas Call Center",
-    "subLimpo": "Atendimento"
+    "subLimpo": "Atendimento",
+    "area": "CRM & Call Center"
   },
   {
     "empresa": "CBSM",
@@ -141,7 +152,8 @@
     "subgrupo": "Other costs - CBSM CAT",
     "valor": -78757.99,
     "descricaoConta": "CAT - Gastos com tecnologia",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Other costs - CBSM CAT"
   },
   {
     "empresa": "CBSM",
@@ -153,7 +165,8 @@
     "subgrupo": "Other costs - CBSM CAT",
     "valor": -45331.47,
     "descricaoConta": "CAT - Gastos com tecnologia",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Other costs - CBSM CAT"
   },
   {
     "empresa": "CBSM",
@@ -165,7 +178,8 @@
     "subgrupo": "Services",
     "valor": -59573.47,
     "descricaoConta": "Assessoria Jurídica",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Services"
   },
   {
     "empresa": "CBSM",
@@ -177,7 +191,8 @@
     "subgrupo": "CRM & Call Center",
     "valor": -58405.53,
     "descricaoConta": "Despesas Call Center",
-    "subLimpo": "Atendimento"
+    "subLimpo": "Atendimento",
+    "area": "CRM & Call Center"
   },
   {
     "empresa": "CBSM",
@@ -189,7 +204,8 @@
     "subgrupo": "CRM & Call Center",
     "valor": -8847.57,
     "descricaoConta": "Despesas Call Center",
-    "subLimpo": "Atendimento"
+    "subLimpo": "Atendimento",
+    "area": "CRM & Call Center"
   },
   {
     "empresa": "CBSM",
@@ -201,7 +217,8 @@
     "subgrupo": "CRM & Call Center",
     "valor": -10500.0,
     "descricaoConta": "Pesquisa",
-    "subLimpo": "Atendimento"
+    "subLimpo": "Atendimento",
+    "area": "CRM & Call Center"
   },
   {
     "empresa": "CBSM",
@@ -213,7 +230,8 @@
     "subgrupo": "CRM & Call Center",
     "valor": -18000.0,
     "descricaoConta": "Despesas Call Center",
-    "subLimpo": "Atendimento"
+    "subLimpo": "Atendimento",
+    "area": "CRM & Call Center"
   },
   {
     "empresa": "CBSM",
@@ -225,7 +243,8 @@
     "subgrupo": "CRM & Call Center",
     "valor": -33258.48,
     "descricaoConta": "Despesas Call Center",
-    "subLimpo": "Atendimento"
+    "subLimpo": "Atendimento",
+    "area": "CRM & Call Center"
   },
   {
     "empresa": "CBSM",
@@ -237,7 +256,8 @@
     "subgrupo": "CRM & Call Center",
     "valor": -125522.93,
     "descricaoConta": "Despesas Call Center",
-    "subLimpo": "Atendimento"
+    "subLimpo": "Atendimento",
+    "area": "CRM & Call Center"
   },
   {
     "empresa": "CBSM",
@@ -249,7 +269,8 @@
     "subgrupo": "IT & Telecom",
     "valor": -98723.65,
     "descricaoConta": "Suporte Técnico",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "IT & Telecom"
   },
   {
     "empresa": "CBSM",
@@ -261,7 +282,8 @@
     "subgrupo": "IT & Telecom",
     "valor": -19076.67,
     "descricaoConta": "Suporte Técnico",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "IT & Telecom"
   },
   {
     "empresa": "CBSM",
@@ -273,7 +295,8 @@
     "subgrupo": "IT & Telecom",
     "valor": -8389.73,
     "descricaoConta": "Suporte Técnico",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "IT & Telecom"
   },
   {
     "empresa": "CBSM",
@@ -285,7 +308,8 @@
     "subgrupo": "IT & Telecom",
     "valor": -21762.53,
     "descricaoConta": "Licenças",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "IT & Telecom"
   },
   {
     "empresa": "CBSM",
@@ -297,7 +321,8 @@
     "subgrupo": "IT & Telecom",
     "valor": -32714.0,
     "descricaoConta": "Licenças",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "IT & Telecom"
   },
   {
     "empresa": "CBSM",
@@ -309,7 +334,8 @@
     "subgrupo": "Other costs - CBSM CAT",
     "valor": -71138.81,
     "descricaoConta": "CAT - Gastos com tecnologia",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Other costs - CBSM CAT"
   },
   {
     "empresa": "CBSM",
@@ -321,7 +347,8 @@
     "subgrupo": "Other costs - CBSM CAT",
     "valor": -110497.76,
     "descricaoConta": "CAT - Gastos com tecnologia",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Other costs - CBSM CAT"
   },
   {
     "empresa": "CBSM",
@@ -333,7 +360,8 @@
     "subgrupo": "Other costs - CBSM CAT",
     "valor": -65056.85,
     "descricaoConta": "CAT - Gastos com tecnologia",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Other costs - CBSM CAT"
   },
   {
     "empresa": "CBSM",
@@ -345,7 +373,8 @@
     "subgrupo": "Services",
     "valor": -13036.26,
     "descricaoConta": "Assessoria Jurídica",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Services"
   },
   {
     "empresa": "CBSM",
@@ -357,7 +386,8 @@
     "subgrupo": "IT & Telecom",
     "valor": -27859.2,
     "descricaoConta": "Hosting e Links",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "IT & Telecom"
   },
   {
     "empresa": "CBSM",
@@ -369,7 +399,8 @@
     "subgrupo": "IT & Telecom",
     "valor": -22000.0,
     "descricaoConta": "Suporte Técnico",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "IT & Telecom"
   },
   {
     "empresa": "CBSM",
@@ -381,7 +412,8 @@
     "subgrupo": "IT & Telecom",
     "valor": -85268.27,
     "descricaoConta": "Hosting e Links",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "IT & Telecom"
   },
   {
     "empresa": "CBSM",
@@ -393,7 +425,8 @@
     "subgrupo": "IT & Telecom",
     "valor": -15400.0,
     "descricaoConta": "Suporte Técnico",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "IT & Telecom"
   },
   {
     "empresa": "Noverde",
@@ -405,7 +438,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -30000.0,
     "descricaoConta": "Custo de Cobrança (Custo)",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -417,7 +451,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -30000.0,
     "descricaoConta": "Custo de Cobrança (Custo)",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -429,7 +464,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -271400.0,
     "descricaoConta": "Custo de Marketing (Custo)",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -441,7 +477,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -30000.0,
     "descricaoConta": "Custo de Cobrança (Custo)",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -453,7 +490,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -250000.0,
     "descricaoConta": "Custos de Credito",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -465,7 +503,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -30000.0,
     "descricaoConta": "Custo de Cobrança (Custo)",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -477,7 +516,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -30000.0,
     "descricaoConta": "Custo de Cobrança (Custo)",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -489,7 +529,8 @@
     "subgrupo": "CRM & Call Center",
     "valor": -32695.94,
     "descricaoConta": "Call Center",
-    "subLimpo": "Atendimento"
+    "subLimpo": "Atendimento",
+    "area": "CRM & Call Center"
   },
   {
     "empresa": "Noverde",
@@ -501,7 +542,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -250000.0,
     "descricaoConta": "Custo de Cobrança (Custo)",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -513,7 +555,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -250000.0,
     "descricaoConta": "Custos de Credito",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -525,7 +568,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -5400.0,
     "descricaoConta": "Custo de Cobrança (Custo)",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -537,7 +581,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -23000.0,
     "descricaoConta": "Custo De Prevenção de Fraudes",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -549,7 +594,8 @@
     "subgrupo": "Services",
     "valor": -653.0,
     "descricaoConta": "Assessoria Jurídica (Despesa)",
-    "subLimpo": "Controladoria"
+    "subLimpo": "Controladoria",
+    "area": "Services"
   },
   {
     "empresa": "Noverde",
@@ -561,7 +607,8 @@
     "subgrupo": "CRM & Call Center",
     "valor": -67974.53,
     "descricaoConta": "Call Center",
-    "subLimpo": "Atendimento"
+    "subLimpo": "Atendimento",
+    "area": "CRM & Call Center"
   },
   {
     "empresa": "Noverde",
@@ -573,7 +620,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -520000.0,
     "descricaoConta": "Custos de Credito",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -585,7 +633,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -250000.01,
     "descricaoConta": "Custos de Credito",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -597,7 +646,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -20000.0,
     "descricaoConta": "Custos de Credito",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -609,7 +659,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -23000.0,
     "descricaoConta": "Custo De Prevenção de Fraudes",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -621,7 +672,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -35972.0,
     "descricaoConta": "Custo De Prevenção de Fraudes",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -633,7 +685,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -29116.0,
     "descricaoConta": "Custo de Marketing (Custo)",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -645,7 +698,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -43812.1,
     "descricaoConta": "Custo de Marketing (Custo)",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -657,7 +711,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -211187.5,
     "descricaoConta": "Custo de Marketing (Custo)",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -669,7 +724,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -54797.5,
     "descricaoConta": "Custo de Marketing (Custo)",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -681,7 +737,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -139857.5,
     "descricaoConta": "Custo de Marketing (Custo)",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -693,7 +750,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -21410.0,
     "descricaoConta": "Custo de Marketing (Custo)",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -705,7 +763,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -29933.78,
     "descricaoConta": "Custo de Cobrança (Custo)",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -717,7 +776,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -200000.0,
     "descricaoConta": "Custo de Cobrança (Custo)",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -729,7 +789,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -237459.15,
     "descricaoConta": "Custo de Cobrança (Custo)",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -741,7 +802,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -224382.11,
     "descricaoConta": "Custo de Cobrança (Custo)",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -753,7 +815,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -18000.0,
     "descricaoConta": "Custo de Cobrança (Custo)",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -765,7 +828,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -67219.21,
     "descricaoConta": "Custo de Cobrança (Custo)",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -777,7 +841,8 @@
     "subgrupo": "Other costs - NoVerde",
     "valor": -96856.52,
     "descricaoConta": "Custos de Credito",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - NoVerde"
   },
   {
     "empresa": "Noverde",
@@ -789,7 +854,8 @@
     "subgrupo": "CRM & Call Center",
     "valor": -67974.53,
     "descricaoConta": "Call Center",
-    "subLimpo": "Atendimento"
+    "subLimpo": "Atendimento",
+    "area": "CRM & Call Center"
   },
   {
     "empresa": "Noverde",
@@ -801,7 +867,8 @@
     "subgrupo": "Financial Losses over Cyber attacks",
     "valor": -600000.0,
     "descricaoConta": "Perdas Financeiras",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Financial Losses over Cyber attacks"
   },
   {
     "empresa": "Dotz",
@@ -813,7 +880,8 @@
     "subgrupo": "Contratos de Non Compete",
     "valor": -1000756.0,
     "descricaoConta": "Contratos de Non Compete",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Contratos de Non Compete"
   },
   {
     "empresa": "Dotz",
@@ -825,7 +893,8 @@
     "subgrupo": "(-) Custo de Captação - Debêntures",
     "valor": 23700.0,
     "descricaoConta": "(-) Custo de Captação - Debêntures",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "(-) Custo de Captação - Debêntures"
   },
   {
     "empresa": "Dotz",
@@ -837,7 +906,8 @@
     "subgrupo": "(-) Custo de Captação - Debêntures",
     "valor": 23700.0,
     "descricaoConta": "(-) Custo de Captação - Debêntures",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "(-) Custo de Captação - Debêntures"
   },
   {
     "empresa": "Dotz",
@@ -849,7 +919,8 @@
     "subgrupo": "(-) Custo de Captação - Debêntures",
     "valor": -132375.0,
     "descricaoConta": "(-) Custo de Captação - Debêntures",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "(-) Custo de Captação - Debêntures"
   },
   {
     "empresa": "Dotz",
@@ -861,7 +932,8 @@
     "subgrupo": "(-) Custo de Captação - Debêntures",
     "valor": -435754.71,
     "descricaoConta": "(-) Custo de Captação - Debêntures",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "(-) Custo de Captação - Debêntures"
   },
   {
     "empresa": "Dotz",
@@ -873,7 +945,8 @@
     "subgrupo": "Contratos de Non Compete",
     "valor": 100075.6,
     "descricaoConta": "Contratos de Non Compete",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Contratos de Non Compete"
   },
   {
     "empresa": "Dotz",
@@ -885,7 +958,8 @@
     "subgrupo": "Contratos de Non Compete",
     "valor": 100075.6,
     "descricaoConta": "Contratos de Non Compete",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Contratos de Non Compete"
   },
   {
     "empresa": "Dotz",
@@ -897,7 +971,8 @@
     "subgrupo": "(-) Custo de Captação - Debêntures",
     "valor": 23700.0,
     "descricaoConta": "(-) Custo de Captação - Debêntures",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "(-) Custo de Captação - Debêntures"
   },
   {
     "empresa": "Dotz",
@@ -909,7 +984,8 @@
     "subgrupo": "(-) Custo de Captação - Debêntures",
     "valor": 23700.0,
     "descricaoConta": "(-) Custo de Captação - Debêntures",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "(-) Custo de Captação - Debêntures"
   },
   {
     "empresa": "Dotz",
@@ -921,7 +997,8 @@
     "subgrupo": "Contratos de Non Compete",
     "valor": 100075.6,
     "descricaoConta": "Contratos de Non Compete",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Contratos de Non Compete"
   },
   {
     "empresa": "Dotz",
@@ -933,7 +1010,8 @@
     "subgrupo": "Contratos de Non Compete",
     "valor": 100075.6,
     "descricaoConta": "Contratos de Non Compete",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Contratos de Non Compete"
   },
   {
     "empresa": "Dotz",
@@ -945,7 +1023,8 @@
     "subgrupo": "(-) Custo de Captação - Debêntures",
     "valor": 23700.0,
     "descricaoConta": "(-) Custo de Captação - Debêntures",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "(-) Custo de Captação - Debêntures"
   },
   {
     "empresa": "Dotz",
@@ -957,7 +1036,8 @@
     "subgrupo": "Contratos de Non Compete",
     "valor": 100075.6,
     "descricaoConta": "Contratos de Non Compete",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Contratos de Non Compete"
   },
   {
     "empresa": "Dotz",
@@ -969,7 +1049,8 @@
     "subgrupo": "Services",
     "valor": -34013.61,
     "descricaoConta": "Assessoria Contábil",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Services"
   },
   {
     "empresa": "Dotz",
@@ -981,7 +1062,8 @@
     "subgrupo": "(-) Custo de Captação - Debêntures",
     "valor": -8449.78,
     "descricaoConta": "(-) Custo de Captação - Debêntures",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "(-) Custo de Captação - Debêntures"
   },
   {
     "empresa": "Dotz",
@@ -993,7 +1075,8 @@
     "subgrupo": "Services",
     "valor": -34013.61,
     "descricaoConta": "Assessoria Contábil",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Services"
   },
   {
     "empresa": "Dotz",
@@ -1005,7 +1088,8 @@
     "subgrupo": "Services",
     "valor": -34013.61,
     "descricaoConta": "Assessoria Contábil",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Services"
   },
   {
     "empresa": "Dotz",
@@ -1017,7 +1101,8 @@
     "subgrupo": "Services",
     "valor": -61980.91,
     "descricaoConta": "Serviços de Consultoria",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Services"
   },
   {
     "empresa": "Dotz",
@@ -1029,7 +1114,8 @@
     "subgrupo": "Services",
     "valor": -41743.92,
     "descricaoConta": "Assessoria Jurídica",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Services"
   },
   {
     "empresa": "Dotz",
@@ -1041,7 +1127,8 @@
     "subgrupo": "Services",
     "valor": -61980.91,
     "descricaoConta": "Serviços de Consultoria",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Services"
   },
   {
     "empresa": "Dotz",
@@ -1053,7 +1140,8 @@
     "subgrupo": "Services",
     "valor": -34013.61,
     "descricaoConta": "Assessoria Contábil",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Services"
   },
   {
     "empresa": "Dotz",
@@ -1065,7 +1153,8 @@
     "subgrupo": "Services",
     "valor": -9576.28,
     "descricaoConta": "Serviços de Consultoria",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Services"
   },
   {
     "empresa": "Dotz",
@@ -1077,7 +1166,8 @@
     "subgrupo": "IT & Telecom",
     "valor": -18750.0,
     "descricaoConta": "Licenças",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "IT & Telecom"
   },
   {
     "empresa": "Dotz",
@@ -1089,7 +1179,8 @@
     "subgrupo": "Services",
     "valor": -21404.25,
     "descricaoConta": "Assessoria Jurídica",
-    "subLimpo": ""
+    "subLimpo": "",
+    "area": "Services"
   },
   {
     "empresa": "PAY",
@@ -1101,7 +1192,8 @@
     "subgrupo": "Services",
     "valor": -5833.33,
     "descricaoConta": "Assessoria Contábil e Auditoria",
-    "subLimpo": "Controladoria"
+    "subLimpo": "Controladoria",
+    "area": "Services"
   },
   {
     "empresa": "PAY",
@@ -1113,7 +1205,8 @@
     "subgrupo": "Services",
     "valor": -5833.33,
     "descricaoConta": "Assessoria Contábil e Auditoria",
-    "subLimpo": "Controladoria"
+    "subLimpo": "Controladoria",
+    "area": "Services"
   },
   {
     "empresa": "PAY",
@@ -1125,7 +1218,8 @@
     "subgrupo": "Services",
     "valor": -5833.33,
     "descricaoConta": "Assessoria Contábil e Auditoria",
-    "subLimpo": "Controladoria"
+    "subLimpo": "Controladoria",
+    "area": "Services"
   },
   {
     "empresa": "PAY",
@@ -1137,6 +1231,7 @@
     "subgrupo": "Other costs - Dotz Pay",
     "valor": -57307.0,
     "descricaoConta": "Onboarding",
-    "subLimpo": "TechFin"
+    "subLimpo": "TechFin",
+    "area": "Other costs - Dotz Pay"
   }
 ]
