@@ -458,20 +458,20 @@ function updateRelatorio() {
 
     if (hasPos && hasNeg) {
       /* colapsa em 1 linha com o saldo líquido */
-      const r   = grp[0];
-      const net = grp.reduce((s, r) => s + r.valor, 0);
+      const orig = grp.find(r => r.valor < 0) || grp[0];
+      const net  = grp.reduce((s, r) => s + r.valor, 0);
       html += `<tr>
         <td>
-          <div class="concat-main">${escHtml(toTitleCase(r.fornecedor))}</div>
-          <div class="concat-sub">${escHtml(r.ref3)}</div>
+          <div class="concat-main">${escHtml(toTitleCase(orig.fornecedor))}</div>
+          <div class="concat-sub">${escHtml(orig.ref3)}</div>
         </td>
-        <td>${empresaBadge(r.empresa)}</td>
-        <td>—</td>
+        <td>${empresaBadge(orig.empresa)}</td>
+        <td>${capMes(orig.mes)}</td>
         <td>
-          <div class="concat-main">${escHtml(r.conta)}</div>
-          <div class="concat-sub">${escHtml(r.descricaoConta)}</div>
+          <div class="concat-main">${escHtml(orig.conta)}</div>
+          <div class="concat-sub">${escHtml(orig.descricaoConta)}</div>
         </td>
-        <td>—</td>
+        <td>${escHtml(orig.ntrans)}</td>
         <td class="valor-cell ${net < 0 ? 'valor-neg' : 'valor-pos'}">${fmtBRLFull(net)}</td>
       </tr>`;
     } else {
