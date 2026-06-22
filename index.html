@@ -183,6 +183,7 @@
         <tr>
           <th class="sortable" onclick="sortTable('fornecedor')">Fornecedor ↕</th>
           <th class="sortable" onclick="sortTable('empresa')">Empresa ↕</th>
+          <th class="sortable" onclick="sortTable('area')">Área ↕</th>
           <th class="sortable" onclick="sortTable('mes')">Mês/Ano ↕</th>
           <th>Conta Contábil</th>
           <th class="sortable" onclick="sortTable('ntrans')">Nº Transação ↕</th>
@@ -389,6 +390,7 @@ function buildRelRow(r) {
       <div class="concat-sub">${escHtml(r.ref3)}</div>
     </td>
     <td>${empresaBadge(r.empresa)}</td>
+    <td>${escHtml(r.area)}</td>
     <td>${capMes(r.mes)}</td>
     <td>
       <div class="concat-main">${escHtml(r.conta)}</div>
@@ -401,7 +403,7 @@ function buildRelRow(r) {
 
 function buildNetRow(ref, conta, net) {
   return `<tr class="net-row">
-    <td colspan="4" style="text-align:right;padding-right:16px">
+    <td colspan="5" style="text-align:right;padding-right:16px">
       <span class="net-label">↳ Saldo Líquido — ${escHtml(ref)} / ${escHtml(conta)}</span>
     </td>
     <td></td>
@@ -446,7 +448,7 @@ function updateRelatorio() {
 
   const tbody = document.getElementById('rel-tbody');
   if (!rows.length) {
-    tbody.innerHTML = '<tr><td colspan="6" class="no-data">Nenhum registro encontrado.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="7" class="no-data">Nenhum registro encontrado.</td></tr>';
     document.getElementById('rel-count').textContent = `0 de ${ALL_DATA.length} registros`;
     return;
   }
@@ -466,6 +468,7 @@ function updateRelatorio() {
           <div class="concat-sub">${escHtml(orig.ref3)}</div>
         </td>
         <td>${empresaBadge(orig.empresa)}</td>
+        <td>${escHtml(orig.area)}</td>
         <td>${capMes(orig.mes)}</td>
         <td>
           <div class="concat-main">${escHtml(orig.conta)}</div>
