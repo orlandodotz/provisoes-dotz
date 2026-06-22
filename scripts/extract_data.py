@@ -55,7 +55,6 @@ for row in sheet.iter_rows(min_row=2, values_only=True):
         "valor":          round(valor, 2),
         "descricaoConta": str(row[8] or ""),
         "subLimpo":       str(row[9] or ""),
-        "area":           str(row[10] or "") if len(row) > 10 else "",
     })
 
 with open("data.json", "w", encoding="utf-8") as f:
