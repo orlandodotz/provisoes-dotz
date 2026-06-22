@@ -57,7 +57,7 @@
       padding: 7px 4px; border-bottom: 1px solid #f0f0f0; gap: 12px;
     }
     .top10-row:last-child { border-bottom: none; }
-    .top10-name { font-size: 12px; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .top10-name { font-size: 12px; color: #1a1a1a; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .top10-val  { font-size: 12px; font-weight: 700; color: #1a1a1a; white-space: nowrap; }
 
     /* Relatório */
@@ -371,11 +371,9 @@ function updateDashboard() {
   /* ---- Top 10 Fornecedores (lista) ---- */
   const fornGroup = groupBy(data, 'fornecedor');
   const top10     = Object.entries(fornGroup).sort((a, b) => a[1] - b[1]).slice(0, 10);
-  /* cores do Excel original: azul e laranja alternados */
-  const COR = ['#4472C4', '#ED7D31'];
-  document.getElementById('top10-list').innerHTML = top10.map(([name, val], i) =>
+  document.getElementById('top10-list').innerHTML = top10.map(([name, val]) =>
     `<div class="top10-row">
-       <span class="top10-name" style="color:${COR[i % 2]}">${toTitleCase(name)}</span>
+       <span class="top10-name">${toTitleCase(name)}</span>
        <span class="top10-val">R$ ${Math.round(Math.abs(val)).toLocaleString('pt-BR')}</span>
      </div>`
   ).join('');
