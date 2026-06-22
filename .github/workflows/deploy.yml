@@ -6,6 +6,7 @@ on:
     paths:
       - "**.xlsx"
       - "index.html"
+      - "techfin.html"
       - "scripts/**"
       - ".github/workflows/deploy.yml"
   workflow_dispatch:
